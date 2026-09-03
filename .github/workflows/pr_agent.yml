@@ -1,0 +1,16 @@
+# Calls the org-shared PR-Agent workflow so the review model/version is
+# configured in one place (zguys/.github). Requires org secret OPENROUTER_API_KEY.
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+  issue_comment:
+    types: [created]
+jobs:
+  pr-agent:
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    uses: zguys/.github/.github/workflows/pr-agent.yml@main
+    secrets:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
